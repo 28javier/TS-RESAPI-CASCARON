@@ -1,6 +1,7 @@
 import express, {Application} from 'express';
 import UserRoutes from '../routes/usuarios.routes';
 import cors from "cors";
+import {dbConnection} from '../database/connection';
 
 class Server {
     private app:Application;
@@ -13,6 +14,8 @@ class Server {
     this.app = express();
     this.port = process.env.PORT || '8000';
 
+    //CONEXION BDD
+    this.conectatDB();
     //Middlewares
     this.middlewares();
     //definir rutas
@@ -20,6 +23,9 @@ class Server {
     }
 
     //TODO: Conectar base de Datos
+    async conectatDB(){
+        await dbConnection(); 
+    }
 
     //Middlewares
     middlewares(){
